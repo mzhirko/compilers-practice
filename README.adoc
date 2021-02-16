@@ -1,0 +1,96 @@
+:doctype: book
+:imagesdir: ./images
+:nofooter:
+
+= Compilers Course
+
+== Contents
+    * <<task1,Task №1>>
+    * <<task2,Task №2>>
+
+[#task1]
+== Task №1
+*Constructing a finite automaton:* +
+_**Problem statement: `a^2_(ab)*(c|d)^+`** +
+
+=== 1. Transitions diagram of a finite automaton +
+image:finite_state_machine_p1.png[]
+
+=== 2. Determining a finite automaton +
+image:finite_state_machine_p2.png[]
+
+=== 3. For the resulting finite state machine, construct a table of states +
+
+[cols="1,1,1,1,1"]
+|===
+|
+|a
+|b
+|c
+|d
+
+|q0
+|q1
+|
+|
+|
+
+|q1
+|q2
+|
+|
+|
+
+|q2
+|q3
+|
+|q5
+|q5
+
+|q3
+|
+|q4
+|
+|
+
+|q4
+|q3
+|
+|q5
+|q5
+
+|q5
+|
+|
+|q5
+|q5
+
+|===
+
+=== 4. Minimization algorithm.
+
+1.Let the set P(0,1,2,3,4,5) be the set of all states. Decompose it into two subsets according to the condition with states (0,1,2,3,4) and (5), where the subset (0,1,2,3,4) contains non-conclusive states, and the subset (5) contains the final state. +
+2. The first subset is split into 2 more with states (0,1,3) and (2,4), because for all input symbols the transition by input symbol goes to the final state from the same group. +
+3. We split the first subset into 2 with states (0,1) and (3). +
+4. We divide the first subset into 2 with states (0) and (1). As a result, we obtained that only one of states 2 and 4 can be kept, e.g. 2. The number of states of the finite automaton is reduced by one. +
+
+image:finite_state_machine_p3.png[]
+    
+Let us prove that it is minimized: +
+{q0,q1,q2,q3}  {q4} +
+{q0,q1,q2}  {q3}  {q4} +
+{q0}  {q1}  {q2}  {q3}  {q4}
+
+=== 5. We obtained a determined and minimized finite automaton.
+Correct strings examples of a finite automaton: +
+aacddc +
+aaababccdcdc +
+aaabccc. +
+Examples of incorrect strings: +
+bcda +
+abacdcd +
+abacb.
+
+
+[#task2]
+== Task №2
