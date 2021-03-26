@@ -7,6 +7,7 @@
 == Contents
     * <<task1,Task №1>>
     * <<task2,Task №2>>
+    * <<task3,Task №3>>
 
 [#task1]
 == Task №1
@@ -94,3 +95,69 @@ abacb.
 
 [#task2]
 == Task №2
+=== 1. Language description.
+<P> ::= <H> (<B>)... +
+<H> ::= 'h' ('t' 'i')... +
+<B> ::= 'b' (',' 'b')... ';'
+
+=== 2. Constructing grammar following language description.
+P -> H +
+P -> HG +
+G -> BG +
+G -> ε +
+H -> hN +
+N -> tiN +
+N -> ε +
+B -> bM; +
+M -> ,bM +
+M -> ε
+
+=== 3. The grammar is context-free (CF) because the characters on the left side are non-terminals and the characters on the right side are terminals or non-terminals.
+
+=== 4. Construct parse trees for the three examples.
+.htiti
+image::./task2-1.png[]
+.htib,b;
+image::./task2-2.png[]
+.htib,b;b,b,b;
+image::./task2-3.png[]
+
+=== 5. The grammar is not left-recursive because there is no rule of the form A -> Aα.
+=== 6. The grammar is non-factorized because species rules occur.
+A -> aC +
+A -> aD +
+Left-factorizing the grammar: +
+replacing P -> H and P -> HG with P -> HC where C -> G ,  C -> Ɛ. +
+The transformed grammar will look as follows:
+P -> HC +
+C -> G +
+C -> ε +
+G -> BG +
+G -> ε +
+H -> hN +
+N -> tiN +
+N -> ε +
+B -> bM; +
+M -> ,bM  +
+M -> ε +
+Since C -> G , C -> Ɛ , and G -> BG , G -> ε , we can ignore C and write it this way: +
+P -> HG +
+G -> BG +
+G -> ε +
+H -> hN +
+N -> tiN +
+N -> ε +
+B -> bM; +
+M -> ,bM +
+M -> ε
+
+=== 7. Using the transformed grammar, construct parsing trees.
+.htiti
+image::./task2-4.png[]
+.htib,b;
+image::./task2-5.png[]
+.htib,b;b,b,b;
+image::./task2-6.png[]
+
+[#task3]
+== Task №3
