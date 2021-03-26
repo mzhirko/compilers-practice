@@ -1,0 +1,36 @@
+digraph G {
+  h [shape=none]
+  t [shape=none]
+  i [shape=none]
+  b [shape=none]
+  N_1 [label="N"]
+  G_1 [label="G"]
+  b_1 [label="b", shape=none]
+  comma [label=",", shape=none]
+  semicolons [label=";", shape=none]
+  ε [shape=none]
+  epsilon_1 [label="ε", shape=none]
+  epsilon_2 [label="ε", shape=none]
+  M_1 [label="M"]
+  
+  P -> H 
+  H -> h 
+  H -> N
+  N -> t
+  N -> i
+  N -> N_1
+  N_1 -> ε
+
+  P -> G
+  G -> G_1
+  G_1 -> epsilon_1
+  G -> B
+  B -> b
+  B -> semicolons
+  B -> M
+  M -> comma
+  M -> b_1
+  M -> M_1
+  M_1 -> epsilon_2
+
+}
