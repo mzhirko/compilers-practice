@@ -191,15 +191,16 @@ B = {b}                         B = {b, $}
 G = {b, ε}                      G = {$}
 
 === 5. Let's build a predictive analyzer table. 
-[width="50%",cols=">s,^m,e",frame="topbot",options="header,footer"]
-|==========================
-|      2+|Columns 2 and 3
-|1       |Item 1  |Item 1
-|2       |Item 2  |Item 2
-|3       |Item 3  |Item 3
-|4       |Item 4  |Item 4
-|footer 1|footer 2|footer 3
-|==========================
+[width="50%",cols=">s,m,e,g,h,m,n",options="header"]
+|====================================================
+|      2+|h     |ti     |b      |,      |;      |$  
+|P       |P->HG |       |       |       |       |
+|H       |H->hN |       |       |       |       |
+|N       |      |N->tiN |N->ε   |       |       |N->ε
+|G       |      |       |G->BG  |       |       |G->ε
+|B       |      |       |B->bM; |       |       |
+|M       |      |       |       |M->,bM |M->ε   |
+|====================================================
 
 === 6. Let's check the correctness of the construction with examples.
 ==== Correct examples: 
