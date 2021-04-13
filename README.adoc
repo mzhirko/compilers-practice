@@ -191,7 +191,7 @@ B = {b}                         B = {b, $}
 G = {b, ε}                      G = {$}
 
 === 5. Let's build a predictive analyzer table. 
-[width="50%",cols=">s,m,e,g,h,m,n",options="header"]
+[width="50%",cols=">s,k,e,g,h,m,n",options="header"]
 |====================================================
 |        |h     |ti     |b      |,      |;      |$  
 |P       |P->HG |       |       |       |       |
