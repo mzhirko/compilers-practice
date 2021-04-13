@@ -8,6 +8,7 @@
     * <<task1,Task №1>>
     * <<task2,Task №2>>
     * <<task3,Task №3>>
+    * <<task4,Task №4>>
 
 [#task1]
 == Task №1
@@ -161,3 +162,91 @@ image::./task2-6.png[]
 
 [#task3]
 == Task №3
+=== 1. Language description.
+<P> ::= <H> (<B>)... +
+<H> ::= 'h' ('t' 'i')... +
+<B> ::= 'b' (',' 'b')... ';'
+
+=== 2. Constructing grammar following language description.
+P -> H +
+P -> HG +
+G -> BG +
+G -> ε +
+H -> hN +
+N -> tiN +
+N -> ε +
+B -> bM; +
+M -> ,bM +
+M -> ε
+
+=== 3. The grammar is nonleft-recursive and left-factorized.
+
+=== 4. Let us define the meaning of the FIRST and FOLLOW functions for the developed grammar.
+*FIRST*                         *FOLLOW*
+P = {h}                         P = {$}
+H = {h}                         H = {b, $}
+N = {t,  ε}                     N = {b, $}
+M = {, , ε}                     M = { ; }
+B = {b}                         B = {b, $}
+G = {b, ε}                      G = {$}
+
+=== 5. Let's build a predictive analyzer table. 
+[width="50%",cols=">s,^m,e",frame="topbot",options="header,footer"]
+|==========================
+|      2+|Columns 2 and 3
+|1       |Item 1  |Item 1
+|2       |Item 2  |Item 2
+|3       |Item 3  |Item 3
+|4       |Item 4  |Item 4
+|footer 1|footer 2|footer 3
+|==========================
+
+=== 6. Let's check the correctness of the construction with examples.
+==== Correct examples: 
+
+*htib;$*
+P$
+HG$
+hNG$
+NG$
+tiNG$
+NG$
+G$
+BG$
+bM;G$
+M;G$
+;G$
+G$
+$
+
+*htitib,b;$*
+P$
+HG$
+hNG$
+NG$
+tiNG$
+NG$
+tiNG$
+NG$
+G$
+BG$
+bM;G$
+M;G$
+,bM;G$
+M;G$
+;G$
+G$
+$
+
+Wrong example:
+
+*hbtib,b;$*
+P$
+HG$
+hNG$
+NG$
+tiNG$ - mistake, because there is an extra terminal b in the string.
+
+[#task4]
+== Task №4
+
