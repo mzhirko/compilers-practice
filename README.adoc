@@ -193,7 +193,7 @@ G = {b, ε}                      G = {$}
 === 5. Let's build a predictive analyzer table. 
 [width="50%",cols=">s,m,e,g,h,m,n",options="header"]
 |====================================================
-|      2+|h     |ti     |b      |,      |;      |$  
+|        |h     |ti     |b      |,      |;      |$  
 |P       |P->HG |       |       |       |       |
 |H       |H->hN |       |       |       |       |
 |N       |      |N->tiN |N->ε   |       |       |N->ε
