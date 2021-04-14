@@ -182,13 +182,16 @@ M -> ε
 === 3. The grammar is nonleft-recursive and left-factorized.
 
 === 4. Let us define the meaning of the FIRST and FOLLOW functions for the developed grammar.
-*FIRST*                         *FOLLOW*
-P = {h}                         P = {$}
-H = {h}                         H = {b, $}
-N = {t,  ε}                     N = {b, $}
-M = {, , ε}                     M = { ; }
-B = {b}                         B = {b, $}
-G = {b, ε}                      G = {$}
+[cols="1,1"]
+|===
+|*FIRST*             |            *FOLLOW*
+|P = {h}             |            P = {$}
+|H = {h}             |            H = {b, $}
+|N = {t,  ε}         |            N = {b, $}
+|M = {, , ε}         |            M = { ; }
+|B = {b}             |            B = {b, $}
+|G = {b, ε}          |            G = {$}
+|===
 
 === 5. Let's build a predictive analyzer table. 
 [width="50%",options="header"]
@@ -205,47 +208,47 @@ G = {b, ε}                      G = {$}
 === 6. Let's check the correctness of the construction with examples.
 ==== Correct examples: 
 
-*htib;$*
-P$
-HG$
-hNG$
-NG$
-tiNG$
-NG$
-G$
-BG$
-bM;G$
-M;G$
-;G$
-G$
-$
+*htib;$* +
+P$ +
+HG$ +
+hNG$ +
+NG$ +
+tiNG$ +
+NG$ +
+G$ +
+BG$ +
+bM;G$ +
+M;G$ +
+;G$ +
+G$ +
+$ 
 
-*htitib,b;$*
-P$
-HG$
-hNG$
-NG$
-tiNG$
-NG$
-tiNG$
-NG$
-G$
-BG$
-bM;G$
-M;G$
-,bM;G$
-M;G$
-;G$
-G$
-$
+*htitib,b;$* +
+P$ +
+HG$ +
+hNG$ +
+NG$ +
+tiNG$ +
+NG$ +
+tiNG$ +
+NG$ +
+G$ +
+BG$ +
+bM;G$ +
+M;G$ +
+,bM;G$ +
+M;G$ +
+;G$ +
+G$ +
+$ 
 
 Wrong example:
 
-*hbtib,b;$*
-P$
-HG$
-hNG$
-NG$
+*hbtib,b;$* +
+P$ +
+HG$ +
+hNG$ +
+NG$ +
 tiNG$ - mistake, because there is an extra terminal b in the string.
 
 [#task4]
