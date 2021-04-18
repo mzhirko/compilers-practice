@@ -9,6 +9,7 @@
     * <<task2,Task №2>>
     * <<task3,Task №3>>
     * <<task4,Task №4>>
+    * <<task5,Task №5>>
 
 [#task1]
 == Task №1
@@ -253,4 +254,8 @@ tiNG$ - mistake, because there is an extra terminal b in the string.
 
 [#task4]
 == Task №4
+
+
+[#task5]
+== Task №5
 
