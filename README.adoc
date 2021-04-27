@@ -261,6 +261,116 @@ S -> Aa +
 A -> Ac | Bb |  ε +
 B -> cB |  ε +
 
+=== 1. Get rid of the left recursion and left-factorize the grammar:
+
+    First we have to get rid of ε-transitions for products with left recursion:
+
+S -> Aa | a +
+A -> Ac | Bb | c +
+B -> cB | ε +
+
+    Then we have to get rid of the left recursion directly:
+
+S -> Aa | a +
+A -> BbA’ | cA’ | Bb | c +
+A’ -> cA’ | c +
+B -> cB | ε +
+
+    The last step is to left-factorize the grammar:
+
+S -> Aa | a +
+A -> BbС | cС +
+A’ -> cD +
+D - > c| ε +
+С -> A’ | ε +
+B -> cB | ε
+
+=== 2. Construct the FIRST and FOLLOW functions for the grammar given in the condition:
+[cols="1,1"]
+|===
+|*FIRST*             |            *FOLLOW*
+|(S) = {a,с,b}       |           (S)={$}
+|(A) = {с,b}         |           (A)={а}
+|(B)={с, ε}          |           (B)={b,c,$}
+|(C)={c, ε}          |           (C)={$}
+|(А’)={с}            |           (А’)={$}
+|(D)={c, ε}          |           (D)={$}
+|===
+
+
+=== 3. Building a set of clauses. To do this, number the rules and add a fictitious zero rule. After that the grammar will look like this: 
+
+1. S’->S +
+2. S->Аа +
+3. S->а +
+4. A->BbC +
+5. A->cC +
+6. A’->cD +
+7. D->c +
+8. D-> ε +
+9. C->A’ +
+10. C-> ε +
+11. B-> ε +
+12. B->cB +
+
+    The set of clauses for a given grammar is represented as: 
+
+I0 = {S’ ->・S, S->・a, S -> ・Aa, A->・cC, A->・BbC, B-> ・, B->・cB} +
+I1 = goto(I0, S) = {S’->S・} +
+I2 = goto(I0, a) = {S->a・} +
+I3 = goto(I0, A) = {S->A・a} +
+I4 = goto(I3, a) = {S->Aa・} +
+I5 = goto(I0, c) = {A->c・C, C-> ・, C-> ・A’, A’ -> ・cD} +
+I6 = goto(I5, C) = {A->cC・} +
+I7 = goto(I5, A’) = {C-> A’・} +
+I8 = goto(I5, c) = {A’->c・D, D->・c, D->・} +
+I9 = goto(I8, D) = {A’->cD・} +
+l10 = goto(l8,c) = {D->c・} +
+I11 = goto(I0, B) = {A->B・bc} +
+I12 = goto(I0, c) = {B->c・B, B->・cB, B->・} +
+l13 = goto(l12,B) = {B->cB・}
+
+=== 4. Transition diagram
+
+[cols = 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+|===
+| state | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13
+|0      |   | S | a | A |   | c |   |   |   |   |    | B  | c  |
+|1      |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|2      |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|3      | s |   |   |   | a |   |   |   |   |   |    |    |    |
+|4      |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|5      |   |   |   |   |   |   | C | A'|   |   |    |    |    |
+|6      |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|7      |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|8      |   |   |   |   |   |   |   |   |   |   | D  | c  |    |
+|9      |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|10     |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|11     |   |   |   |   |   |   |   |   |   |   |    |    |    |
+|12     |   |   |   |   |   |   |   |   |   |   |    |    |    |B
+|13     |   |   |   |   |   |   |   |   |   |   |    |    |    | 
+|===
+
+=== 5. SLR analyzer table
+
+[cols = 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+|===
+| state | a | b     | c     | $     | A | B | C | S | A'| D 
+|0      |s2 |       |s5,s12 |       |3  |11 |   |1  |   |   
+|1      |   |       |       |accept |   |   |   |   |   |   
+|2      |   |       |       |r2     |   |   |   |   |   |   
+|3      |s4 |       |       |       |   |   |   |   |   |   
+|4      |   |       |       |r2     |   |   |   |   |   |   
+|5      |   |       |s8     |       |   |   |6  |   |7  |   
+|6      |r5 |       |       |       |   |   |   |   |   |  
+|7      |   |       |       |r9     |   |   |   |   |   |  
+|8      |   |       |       |r8     |   |   |   |   |   |9 
+|9      |   |       |       |r12    |   |   |   |   |   |
+|10     |   |       |       |r7     |   |   |   |   |   |
+|11     |   |       |       |       |   |   |   |   |   |
+|12     |   |r11    |r11    |r11    |   |13 |   |   |   |
+|13     |   |r12    |r12    |r12    |   |   |   |   |   |
+|===
 
 
 [#task5]
