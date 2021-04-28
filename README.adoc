@@ -433,7 +433,30 @@ For the syntax tree and for the dag:
 To make it clearer, we will perform optimization over the source code, and then show how it is reflected in each type of intermediate code.
 
 Let us perform distribution of copies:
+`for (int i = 0; i < 12; i++) {
+ scanf(“%d”, f);
+ int d = *i * f * 3;*
+ printf(“%d”, *d*);
+}`
+&#129047;
+`for (int i = 0; i < 12; i++) {
+ scanf(“%d”, f);
+ int d = *i * f * 3;*
+ printf(“%d”, *i * f * 3*);
+}`
+
 Let's remove the useless code:
+
+`for (int i = 0; i < 12; i++) {
+ scanf(“%d”, f);
+ *int d = i * f * 3;*
+ printf(“%d”, i * f * 3);
+ }`
+&#129047;
+`for (int i = 0; i < 12; i++) {
+ scanf(“%d”, f);
+ printf(“%d”, i * f * 3);
+ }` 
 
 === 4. Let's write the resulting optimized intermediate code as quadruples.
 
@@ -448,22 +471,22 @@ Memory cells for constants
 
 [width="50%"]
 |===
-|       |Op     | arg1  | arg2  | result
-|(0)    | assign|       | 0     |i
-|(1)    | <     | i     | 12    | t_1
-|(2)    | if    | t_1   | (4)   |
-|(3)    | goto  | (15)  |       |
-|(4)    | param | D01   |       |
-|(5)    | param | f     |       |
-|(6)    | call  | scanf | 2     |
-|(7)    | param | D01   |       |
-|(8)    | *     | i     | f     | t_2
-|(9)    | *     | t_2   | 3     | t_3
-|(10)   | param | t_3   |       |
-|(11)   |call   | printf| 2     |
-|(12)   | +     | i     | 1     | t_4
-|(13)   | assign| t_4   |       | i
-|(14)   |goto   | (1)   |       |
-|(15)   |       |       |       |
+|       |Op     | arg1      | arg2  | result
+|(0)    | assign|           | 0     |i
+|(1)    | <     | i         | 12    | t&#8321;
+|(2)    | if    | t&#8321;  | (4)   |
+|(3)    | goto  | (15)      |       |
+|(4)    | param | D01       |       |
+|(5)    | param | f         |       |
+|(6)    | call  | scanf     | 2     |
+|(7)    | param | D01       |       |
+|(8)    | *     | i         | f     | t&#8322;
+|(9)    | *     | t&#8322;  | 3     | t&#8323;
+|(10)   | param | t&#8323;  |       |
+|(11)   |call   | printf    | 2     |
+|(12)   | +     | i         | 1     | t&#8324;
+|(13)   | assign| t&#8324;  |       | i
+|(14)   |goto   | (1)       |       |
+|(15)   |       |           |       |
 |===
 
