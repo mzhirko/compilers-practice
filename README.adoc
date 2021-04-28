@@ -354,7 +354,7 @@ l13 = goto(l12,B) = {B->cB・}
 
 [width="50%"]
 |===
-|    4.1|   action               6.1|   goto
+|   4.1+|   action              6.1+|   goto
 | state | a | b     | c     | $     | A | B | C | S | A'| D 
 |0      |s2 |       |s5,s12 |       |3  |11 |   |1  |   |   
 |1      |   |       |       |accept |   |   |   |   |   |   
