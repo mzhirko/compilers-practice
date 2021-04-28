@@ -380,11 +380,90 @@ l13 = goto(l12,B) = {B->cB・}
 
 === Given code:
 
-`int f(int n) { return n * 3 + 1;}` +
-`int main(void) {` +
-  `int d = f (4);` +
-  `return f(5) + d;` +
-`}`
+*F3*
+`int f(int n) { return n * 3 + 1;} +
+int main(void) { +
+  int d = f (4); +
+  return f(5) + d; +
+}`
 
+*C1*
+Syntax tree;
+*C3*
 Three-address code. 4s
+
+=== 1. Construction of intermediate code:
+
+1.1. As a syntax tree:
+
+=== 2. Typology of intermediate code commands.
+
+For the syntax tree and for the dag:
+
+- program - program. Contains the list of program statements.
+
+- op+ - the list of program statements. Contains the operator and a link to the next.
+
+- next_op - reference to the next operator of the list. Contains the operator and reference to the next one (reference can be absent).
+
+- assignment - assignment operator. Contains the object to which the value is assigned and the value that is assigned.
+
+- For_op is an iteration loop operator. It consists of an assignment operator, a conditional operator, and a list of loop body operators.
+
+- < - logical operation "less than". It consists of two objects that are compared by this operator.
+
+- strlen is an operator for finding the length of a string. Contains the string the length of which is found.
+
+- scanf is the input operator. Contains the list of parameters.
+
+- param+ - the list of function's parameters. Contains the parameter and the link to the next parameter.
+
+- next_param - reference to the next function's parameter. Contains the function's parameter and the link to the next parameter (the link may be absent).
+
+- & - address taking operator. Contains the object, the address of which is taken.
+
+- * - operator of multiplication. Contains numbers to be multiplied.
+
+- printf - output operator. Contains the list of parameters.
+
+- [] - array element reference by index. Contains array, which is called and the index of the requested element.
+
+=== 3. Optimization of the intermediate code.
+
+To make it clearer, we will perform optimization over the source code, and then show how it is reflected in each type of intermediate code.
+
+Let us perform distribution of copies:
+Let's remove the useless code:
+
+=== 4. Let's write the resulting optimized intermediate code as quadruples.
+
+Memory cells for constants 
+
+[cols="1,1"]
+|===
+|*CELL NUMBER*       |            *VALUE*
+|D01                 |           "%d"
+|===
+
+
+[width="50%"]
+|===
+|       |Op     | arg1  | arg2  | result
+|(0)    | assign|       | 0     |i
+|(1)    | <     | i     | 12    | t_1
+|(2)    | if    | t_1   | (4)   |
+|(3)    | goto  | (15)  |       |
+|(4)    | param | D01   |       |
+|(5)    | param | f     |       |
+|(6)    | call  | scanf | 2     |
+|(7)    | param | D01   |       |
+|(8)    | *     | i     | f     | t_2
+|(9)    | *     | t_2   | 3     | t_3
+|(10)   | param | t_3   |       |
+|(11)   |call   | printf| 2     |
+|(12)   | +     | i     | 1     | t_4
+|(13)   | assign| t_4   |       | i
+|(14)   |goto   | (1)   |       |
+|(15)   |       |       |       |
+|===
 
