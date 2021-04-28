@@ -401,6 +401,7 @@ Three-address code. 4s
 === 1. Construction of intermediate code:
 
 1.1. As a syntax tree:
+
 .syntax tree for the source code
 image::./tree.png[]
 
