@@ -381,6 +381,7 @@ l13 = goto(l12,B) = {B->cB・}
 === Given code:
 
 *F3*
+
 `int f(int n) { return n * 3 + 1;} +
 int main(void) { +
   int d = f (4); +
@@ -388,8 +389,11 @@ int main(void) { +
 }`
 
 *C1*
+
 Syntax tree;
+
 *C3*
+
 Three-address code. 4s
 
 === 1. Construction of intermediate code:
@@ -433,12 +437,15 @@ For the syntax tree and for the dag:
 To make it clearer, we will perform optimization over the source code, and then show how it is reflected in each type of intermediate code.
 
 Let us perform distribution of copies:
+
 `for (int i = 0; i < 12; i++) {
  scanf(“%d”, f);
  int d = *i * f * 3;*
  printf(“%d”, *d*);
 }`
+
 &#129047;
+
 `for (int i = 0; i < 12; i++) {
  scanf(“%d”, f);
  int d = *i * f * 3;*
@@ -452,7 +459,9 @@ Let's remove the useless code:
  *int d = i * f * 3;*
  printf(“%d”, i * f * 3);
  }`
+
 &#129047;
+
 `for (int i = 0; i < 12; i++) {
  scanf(“%d”, f);
  printf(“%d”, i * f * 3);
