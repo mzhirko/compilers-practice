@@ -380,11 +380,11 @@ l13 = goto(l12,B) = {B->cB・}
 
 === Given code:
 
-```int f(int n) { return n * 3 + 1;}``` +
-```int main(void) {``` +
-```  int d = f (4);``` +
-```  return f(5) + d;``` +
-```}```
+`int f(int n) { return n * 3 + 1;}` +
+`int main(void) {` +
+  `int d = f (4);` +
+  `return f(5) + d;` +
+`}`
 
 Three-address code. 4s
 
